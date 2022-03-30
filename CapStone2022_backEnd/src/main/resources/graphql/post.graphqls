@@ -1,0 +1,22 @@
+scalar Upload
+
+type Query {
+    posts : [Post]
+    getPost(id : ID) : Post
+}
+
+type Mutation {
+    addPost(files : Upload, post : postInput) : String
+}
+
+type Post {
+    id : ID!
+    title : String!
+    content : String!
+    member : Member!
+}
+
+input postInput {
+    title : String!
+    content : String!
+}

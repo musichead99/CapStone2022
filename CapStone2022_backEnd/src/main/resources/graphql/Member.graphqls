@@ -1,0 +1,21 @@
+type Query {
+    getMember(id : ID!) : Member
+    Members : [Member]
+}
+
+type Mutation {
+    addMember(memberDto : memberInput) : Member
+}
+
+type Member {
+    id : ID!
+    email : String!
+    name : String!
+    posts : [Post]
+}
+
+input memberInput {
+    email : String!
+    picture : String!
+    name : String!
+}
