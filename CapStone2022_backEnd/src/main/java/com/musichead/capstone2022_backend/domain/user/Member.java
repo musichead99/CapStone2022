@@ -21,7 +21,7 @@ public class Member {
     private String picture;
     private String name;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Post> posts;
 
     @Builder

@@ -25,7 +25,7 @@ public class Post {
     private Board board;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="member_id")
     private Member member;
 
     @Builder

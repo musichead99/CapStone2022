@@ -1,12 +1,11 @@
-scalar Upload
-
 type Query {
     posts : [Post]
-    getPost(id : ID) : Post
+    getPost(id : ID!) : Post
 }
 
 type Mutation {
-    addPost(files : Upload, post : postInput) : String
+    addPost(postDto : postInput) : Post
+    deletePost(id : ID!) : Post
 }
 
 type Post {
@@ -14,9 +13,12 @@ type Post {
     title : String!
     content : String!
     member : Member!
+    board : Board!
 }
 
 input postInput {
     title : String!
     content : String!
+    memberId : Int!
+    boardId : Int!
 }

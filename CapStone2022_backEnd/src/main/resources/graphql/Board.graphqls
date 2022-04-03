@@ -1,0 +1,17 @@
+extend type Query {
+    boards : [Board]
+    getBoard(id : ID!) : Board
+}
+
+extend type Mutation {
+    addBoard(boardDto : boardInput) : Board
+}
+
+type Board {
+    id : ID!
+    name : String!
+}
+
+input boardInput {
+    name : String!
+}

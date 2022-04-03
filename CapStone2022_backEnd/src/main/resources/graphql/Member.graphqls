@@ -1,21 +1,22 @@
-type Query {
+extend type Query {
     getMember(id : ID!) : Member
-    Members : [Member]
+    members : [Member]
 }
 
-type Mutation {
-    addMember(memberDto : memberInput) : Member
+extend type Mutation {
+    addMember(memberDto : MemberInput) : Member
 }
 
 type Member {
     id : ID!
     email : String!
     name : String!
+    picture : String
     posts : [Post]
 }
 
-input memberInput {
+input MemberInput {
     email : String!
-    picture : String!
+    picture : String
     name : String!
 }
