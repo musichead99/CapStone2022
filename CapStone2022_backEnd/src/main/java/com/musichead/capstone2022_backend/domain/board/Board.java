@@ -17,9 +17,10 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy="board")
+    @OneToMany(mappedBy="board", fetch = FetchType.LAZY)
     private List<Post> Posts;
 
     @Builder

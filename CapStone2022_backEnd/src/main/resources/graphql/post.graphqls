@@ -1,3 +1,5 @@
+scalar LocalDateTime
+
 type Query {
     posts : [Post]
     getPost(id : ID!) : Post
@@ -14,6 +16,8 @@ type Post {
     content : String!
     member : Member!
     board : Board!
+    comments : [Comment]
+    createdAt : LocalDateTime!
 }
 
 input postInput {

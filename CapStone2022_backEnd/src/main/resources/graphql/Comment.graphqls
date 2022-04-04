@@ -1,0 +1,20 @@
+extend type Query {
+    comments : [Comment]
+}
+
+extend type Mutation {
+    addComment(commentDto : commentInput!) : Comment
+}
+
+type Comment {
+    id : ID!
+    post : Post!
+    member : Member!
+    content : String!
+}
+
+input commentInput {
+    postId : Int!
+    memberId : Int!
+    content : String!
+}

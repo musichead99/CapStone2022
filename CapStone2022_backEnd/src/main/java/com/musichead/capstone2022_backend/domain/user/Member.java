@@ -17,8 +17,12 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String email;
+
     private String picture;
+
+    @Column(nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)

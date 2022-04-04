@@ -10,6 +10,7 @@ import com.musichead.capstone2022_backend.dto.PostDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +45,7 @@ public class PostService {
                 .content(postDto.getContent())
                 .member(member)
                 .board(board)
+                .createdAt(LocalDateTime.now())
                 .build();
 
         return postRepository.save(post);
@@ -60,7 +62,13 @@ public class PostService {
         return post;
     }
 
-    public List<Post> findByMemberId(Long member_id) {
+    public List<Post> findByMember_id(Member member) {
+        Long member_id = member.getId();
         return postRepository.findByMember_id(member_id);
+    }
+
+    public List<Post> findByBoard_id(Board board) {
+        Long board_id = board.getId();
+        return postRepository.findByBoard_id(board_id);
     }
 }

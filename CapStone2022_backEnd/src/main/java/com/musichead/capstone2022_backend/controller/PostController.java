@@ -1,5 +1,6 @@
 package com.musichead.capstone2022_backend.controller;
 
+import com.musichead.capstone2022_backend.domain.board.Board;
 import com.musichead.capstone2022_backend.domain.post.Post;
 import com.musichead.capstone2022_backend.domain.user.Member;
 import com.musichead.capstone2022_backend.dto.PostDto;
@@ -31,7 +32,6 @@ public class PostController {
 
     @MutationMapping
     public Post addPost(@Argument PostDto postDto) {
-        System.out.println(postDto.toString());
         return postService.save(postDto);
     }
 
@@ -42,6 +42,11 @@ public class PostController {
 
     @SchemaMapping(typeName = "Member")
     public List<Post> posts(Member member) {
-        return postService.findByMemberId(member.getId());
+        return postService.findByMember_id(member);
+    }
+
+    @SchemaMapping(typeName = "Board")
+    public List<Post> posts(Board board) {
+        return postService.findByBoard_id(board);
     }
 }
