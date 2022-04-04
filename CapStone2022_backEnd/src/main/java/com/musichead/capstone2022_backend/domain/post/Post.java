@@ -48,4 +48,9 @@ public class Post {
         this.member = member;
         this.createdAt = createdAt;
     }
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

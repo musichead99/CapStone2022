@@ -6,8 +6,9 @@ type Query {
 }
 
 type Mutation {
-    addPost(postDto : postInput) : Post
-    deletePost(id : ID!) : Post
+    addPost(postDto : postInput) : Post!
+    updatePost(id : ID!, postDto : postInput) : Post!
+    deletePost(id : ID!) : Post!
 }
 
 type Post {

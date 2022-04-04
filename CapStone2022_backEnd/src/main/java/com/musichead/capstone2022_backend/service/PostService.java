@@ -9,6 +9,7 @@ import com.musichead.capstone2022_backend.domain.user.MemberRepository;
 import com.musichead.capstone2022_backend.dto.PostDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -49,6 +50,15 @@ public class PostService {
                 .build();
 
         return postRepository.save(post);
+    }
+
+    @Transactional
+    public Post update(Long id, PostDto postDto) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("id=" + id + " post not exist"));
+
+        post.update(postDto.getTitle(), postDto.getContent());
+        return post;
     }
 
     public Post delete(Long id) {

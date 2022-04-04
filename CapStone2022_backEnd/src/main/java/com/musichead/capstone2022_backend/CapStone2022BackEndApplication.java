@@ -33,7 +33,7 @@ public class CapStone2022BackEndApplication {
             postRepository.save(post);
 
             for(int i = 1; i <= 10; i++) {
-                commentRepository.save(new Comment().builder().post(post).member(member).content("테스트댓글").build());
+                commentRepository.save(new Comment().builder().post(post).member(member).content("테스트댓글 "+i).build());
             }
         };
     }

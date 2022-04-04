@@ -36,6 +36,11 @@ public class PostController {
     }
 
     @MutationMapping
+    public Post updatePost(@Argument Long id, @Argument PostDto postDto) {
+        return postService.update(id, postDto);
+    }
+
+    @MutationMapping
     public Post deletePost(@Argument Long id) {
         return postService.delete(id);
     }
