@@ -4,6 +4,8 @@ extend type Query {
 
 extend type Mutation {
     addComment(commentDto : commentInput!) : Comment
+    updateComment(id : ID!, commentDto : commentInput!) : Comment
+    deleteComment(id : ID!) : Comment
 }
 
 type Comment {

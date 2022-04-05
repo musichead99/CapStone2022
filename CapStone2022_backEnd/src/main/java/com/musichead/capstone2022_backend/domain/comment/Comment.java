@@ -1,7 +1,8 @@
 package com.musichead.capstone2022_backend.domain.comment;
 
+import com.musichead.capstone2022_backend.domain.BaseTimeEntity;
 import com.musichead.capstone2022_backend.domain.post.Post;
-import com.musichead.capstone2022_backend.domain.user.Member;
+import com.musichead.capstone2022_backend.domain.member.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Comment {
+public class Comment extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,5 +34,9 @@ public class Comment {
         this.content = content;
         this.member = member;
         this.post = post;
+    }
+
+    public void update(String content) {
+        this.content = content;
     }
 }

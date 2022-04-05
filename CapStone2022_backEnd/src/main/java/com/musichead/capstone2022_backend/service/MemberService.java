@@ -1,7 +1,8 @@
 package com.musichead.capstone2022_backend.service;
 
-import com.musichead.capstone2022_backend.domain.user.Member;
-import com.musichead.capstone2022_backend.domain.user.MemberRepository;
+import com.musichead.capstone2022_backend.domain.member.Member;
+import com.musichead.capstone2022_backend.domain.member.MemberRepository;
+import com.musichead.capstone2022_backend.domain.subscribe.SubscribeRepository;
 import com.musichead.capstone2022_backend.dto.MemberDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final SubscribeRepository subscribeRepository;
 
     public List<Member> findAll() {
         return memberRepository.findAll();
@@ -29,6 +31,12 @@ public class MemberService {
         }
 
         return member;
+    }
+
+    public List<Member> getSubscriberList(Long id) {
+        List<Long> subscriberId = subscribeRepository.findToMemberIdByFromMemberId(id);
+
+        return memberRepository.findByIdIn(subscriberId);
     }
 
     public Member save(MemberDto memberDto) {

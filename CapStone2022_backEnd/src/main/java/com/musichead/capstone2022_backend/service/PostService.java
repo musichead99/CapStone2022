@@ -4,24 +4,25 @@ import com.musichead.capstone2022_backend.domain.board.Board;
 import com.musichead.capstone2022_backend.domain.board.BoardRepository;
 import com.musichead.capstone2022_backend.domain.post.Post;
 import com.musichead.capstone2022_backend.domain.post.PostRepository;
-import com.musichead.capstone2022_backend.domain.user.Member;
-import com.musichead.capstone2022_backend.domain.user.MemberRepository;
+import com.musichead.capstone2022_backend.domain.member.Member;
+import com.musichead.capstone2022_backend.domain.member.MemberRepository;
+import com.musichead.capstone2022_backend.domain.subscribe.SubscribeRepository;
 import com.musichead.capstone2022_backend.dto.PostDto;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Service
 public class PostService {
 
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
+    private final SubscribeRepository subscribeRepository;
 
     public List<Post> findAll() {
         return postRepository.findAll();
@@ -46,7 +47,6 @@ public class PostService {
                 .content(postDto.getContent())
                 .member(member)
                 .board(board)
-                .createdAt(LocalDateTime.now())
                 .build();
 
         return postRepository.save(post);
@@ -62,12 +62,10 @@ public class PostService {
     }
 
     public Post delete(Long id) {
-        Optional<Post> optionalPost = postRepository.findById(id);
-        Post post = null;
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("id=" + id + " post not exist"));
 
-        if(optionalPost.isPresent()) {
-            post = optionalPost.get();
-        }
+        postRepository.delete(post);
 
         return post;
     }

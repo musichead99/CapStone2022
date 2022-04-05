@@ -1,0 +1,13 @@
+extend type Query {
+    subscribes : [Subscribe]
+}
+
+extend type Mutation {
+    addSubscribe(fromMemberId : ID!, toMemberId : ID!) : Subscribe
+}
+
+type Subscribe {
+    id : ID!
+    fromMember : Member
+    toMember : Member
+}

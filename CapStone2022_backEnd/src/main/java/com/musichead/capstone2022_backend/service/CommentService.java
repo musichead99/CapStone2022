@@ -4,11 +4,12 @@ import com.musichead.capstone2022_backend.domain.comment.Comment;
 import com.musichead.capstone2022_backend.domain.comment.CommentRepository;
 import com.musichead.capstone2022_backend.domain.post.Post;
 import com.musichead.capstone2022_backend.domain.post.PostRepository;
-import com.musichead.capstone2022_backend.domain.user.Member;
-import com.musichead.capstone2022_backend.domain.user.MemberRepository;
+import com.musichead.capstone2022_backend.domain.member.Member;
+import com.musichead.capstone2022_backend.domain.member.MemberRepository;
 import com.musichead.capstone2022_backend.dto.CommentDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -40,5 +41,22 @@ public class CommentService {
                 .build();
 
         return commentRepository.save(comment);
+    }
+
+    @Transactional
+    public Comment update(Long id, CommentDto commentDto) {
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("id=" + id + " is not exist"));
+
+        comment.update(commentDto.getContent());
+        return comment;
+    }
+
+    public Comment delete(Long id) {
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("id=" + id + " post not exist"));
+
+        commentRepository.delete(comment);
+        return comment;
     }
 }

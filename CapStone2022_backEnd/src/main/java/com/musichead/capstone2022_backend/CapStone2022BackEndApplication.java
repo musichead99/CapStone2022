@@ -6,15 +6,15 @@ import com.musichead.capstone2022_backend.domain.comment.Comment;
 import com.musichead.capstone2022_backend.domain.comment.CommentRepository;
 import com.musichead.capstone2022_backend.domain.post.Post;
 import com.musichead.capstone2022_backend.domain.post.PostRepository;
-import com.musichead.capstone2022_backend.domain.user.Member;
-import com.musichead.capstone2022_backend.domain.user.MemberRepository;
+import com.musichead.capstone2022_backend.domain.member.Member;
+import com.musichead.capstone2022_backend.domain.member.MemberRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import java.time.LocalDateTime;
-
+@EnableJpaAuditing
 @SpringBootApplication
 public class CapStone2022BackEndApplication {
 
@@ -27,9 +27,11 @@ public class CapStone2022BackEndApplication {
         return (args) -> {
             Board board = new Board().builder().name("전체").build();
             Member member = new Member().builder().email("musichead99@naver.com").name("정성구").picture(null).build();
-            Post post = new Post().builder().title("테스트글").content("테스트내용").board(board).member(member).createdAt(LocalDateTime.now()).build();
+            Member member2 = new Member().builder().email("rdd0426@naver.com").name("김영우").picture(null).build();
+            Post post = new Post().builder().title("테스트글").content("테스트내용").board(board).member(member).build();
             boardRepository.save(board);
             memberRepository.save(member);
+            memberRepository.save(member2);
             postRepository.save(post);
 
             for(int i = 1; i <= 10; i++) {

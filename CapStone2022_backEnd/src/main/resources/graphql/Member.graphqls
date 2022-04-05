@@ -1,6 +1,7 @@
 extend type Query {
     getMember(id : ID!) : Member
     members : [Member]
+    getSubscriberList(id : ID!) : [Member]
 }
 
 extend type Mutation {
