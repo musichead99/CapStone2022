@@ -39,6 +39,13 @@ public class PostService {
         return post;
     }
 
+    public List<Post> findSubscriberPosts(Long memberId) {
+        Member member = memberRepository.getReferenceById(memberId);
+        List<Member> subscribers = subscribeRepository.findToMemberByFromMember(member);
+
+        return postRepository.findByMemberIn(subscribers);
+    }
+
     public Post save(PostDto postDto) {
         Member member = memberRepository.getReferenceById(postDto.getMemberId());
         Board board = boardRepository.getReferenceById(postDto.getBoardId());
@@ -68,15 +75,5 @@ public class PostService {
         postRepository.delete(post);
 
         return post;
-    }
-
-    public List<Post> findByMember_id(Member member) {
-        Long member_id = member.getId();
-        return postRepository.findByMember_id(member_id);
-    }
-
-    public List<Post> findByBoard_id(Board board) {
-        Long board_id = board.getId();
-        return postRepository.findByBoard_id(board_id);
     }
 }

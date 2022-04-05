@@ -27,6 +27,11 @@ public class PostController {
         return postService.findById(id);
     }
 
+    @QueryMapping
+    public List<Post> getSubscriberPosts(@Argument Long memberId) {
+        return postService.findSubscriberPosts(memberId);
+    }
+
     @MutationMapping
     public Post addPost(@Argument PostDto postDto) {
         return postService.save(postDto);

@@ -25,7 +25,7 @@ public class MemberController {
 
     @QueryMapping
     public List<Member> getSubscriberList(@Argument Long id) {
-        return memberService.getSubscriberList(id);
+        return memberService.findSubscribers(id);
     }
 
     @QueryMapping

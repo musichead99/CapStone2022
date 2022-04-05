@@ -33,10 +33,11 @@ public class MemberService {
         return member;
     }
 
-    public List<Member> getSubscriberList(Long id) {
-        List<Long> subscriberId = subscribeRepository.findToMemberIdByFromMemberId(id);
+    public List<Member> findSubscribers(Long id) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("id=" + id + "member not exist"));
 
-        return memberRepository.findByIdIn(subscriberId);
+        return subscribeRepository.findToMemberByFromMember(member);
     }
 
     public Member save(MemberDto memberDto) {

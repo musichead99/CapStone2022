@@ -2,7 +2,7 @@ scalar LocalDateTime
 
 type Query {
     posts : [Post]
-    getSubscriberPost(memberId : ID!) : [Post]
+    getSubscriberPosts(memberId : ID!) : [Post]
     getPost(id : ID!) : Post
 }
 

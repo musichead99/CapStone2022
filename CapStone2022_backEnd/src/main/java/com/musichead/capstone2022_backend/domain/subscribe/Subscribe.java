@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Table(
-        uniqueConstraints = @UniqueConstraint(columnNames = {"from_member", "to_member"})
+        uniqueConstraints = @UniqueConstraint(columnNames = {"from_member_id", "to_member_id"})
 )
 @Entity
 public class Subscribe {
@@ -20,11 +20,11 @@ public class Subscribe {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "from_member" , nullable = false)
+    @JoinColumn(name = "from_member_id" , nullable = false)
     private Member fromMember;
 
     @ManyToOne
-    @JoinColumn(name = "to_member", nullable = false)
+    @JoinColumn(name = "to_member_id", nullable = false)
     private Member toMember;
 
     @Builder
