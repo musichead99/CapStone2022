@@ -6,6 +6,7 @@ import com.musichead.capstone2022_backend.service.SubscribeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
@@ -17,8 +18,18 @@ public class SubscribeController {
 
     private final SubscribeService subscribeService;
 
+    @QueryMapping
+    public Long getSubscribeCount(@Argument Long fromMemberId) {
+        return subscribeService.countByFromMember(fromMemberId);
+    }
+
     @MutationMapping
     public Subscribe addSubscribe(@Argument Long fromMemberId, @Argument Long toMemberId) {
         return subscribeService.save(fromMemberId, toMemberId);
+    }
+
+    @MutationMapping
+    public Subscribe deleteSubscribe(@Argument Long fromMemberId, @Argument Long toMemberId) {
+        return subscribeService.delete(fromMemberId, toMemberId);
     }
 }

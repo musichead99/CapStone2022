@@ -9,6 +9,8 @@ import com.musichead.capstone2022_backend.domain.member.MemberRepository;
 import com.musichead.capstone2022_backend.domain.subscribe.SubscribeRepository;
 import com.musichead.capstone2022_backend.dto.PostDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +26,9 @@ public class PostService {
     private final BoardRepository boardRepository;
     private final SubscribeRepository subscribeRepository;
 
-    public List<Post> findAll() {
-        return postRepository.findAll();
+    public Page<Post> findAll(int offset, int size) {
+        PageRequest pageRequest = PageRequest.of(offset, size);
+        return postRepository.findAll(pageRequest);
     }
 
     public Post findById(Long id) {
