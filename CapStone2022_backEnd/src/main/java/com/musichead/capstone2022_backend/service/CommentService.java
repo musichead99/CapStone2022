@@ -8,6 +8,7 @@ import com.musichead.capstone2022_backend.domain.member.Member;
 import com.musichead.capstone2022_backend.domain.member.MemberRepository;
 import com.musichead.capstone2022_backend.dto.CommentDto;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,11 +26,6 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public List<Comment> findByPostId(Post post) {
-        Long post_id = post.getId();
-        return commentRepository.findByPost_id(post_id);
-    }
-
     public Comment save(CommentDto commentDto) {
         Post post = postRepository.getReferenceById(commentDto.getPostId());
         Member member = memberRepository.getReferenceById(commentDto.getMemberId());
@@ -41,6 +37,11 @@ public class CommentService {
                 .build();
 
         return commentRepository.save(comment);
+    }
+
+    public List<Comment> findByPost(Post post, int offset, int size) {
+        PageRequest pageRequest = PageRequest.of(offset, size);
+        return commentRepository.findByPost(post, pageRequest);
     }
 
     @Transactional

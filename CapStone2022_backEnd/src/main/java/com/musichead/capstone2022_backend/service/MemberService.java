@@ -34,10 +34,7 @@ public class MemberService {
     }
 
     public List<Member> findSubscribers(Long id) {
-        Member member = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("id=" + id + "member not exist"));
-
-        return subscribeRepository.findToMemberByFromMember(member);
+        return subscribeRepository.findToMemberByMemberId(id);
     }
 
     public Member save(MemberDto memberDto) {

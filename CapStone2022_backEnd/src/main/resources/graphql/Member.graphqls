@@ -1,7 +1,7 @@
 extend type Query {
     getMember(id : ID!) : Member
-    members : [Member]
-    getSubscriberList(id : ID!) : [Member]
+    members : [Member!]
+    getSubscriberList(id : ID!) : [Member!]
 }
 
 extend type Mutation {
@@ -14,7 +14,7 @@ type Member {
     name : String!
     picture : String
     posts : [Post]
-    comments : [Comment]
+    comments : [Comment!]
 }
 
 input MemberInput {

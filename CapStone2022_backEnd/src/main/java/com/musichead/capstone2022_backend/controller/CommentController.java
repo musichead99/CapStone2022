@@ -1,17 +1,21 @@
 package com.musichead.capstone2022_backend.controller;
 
 import com.musichead.capstone2022_backend.domain.comment.Comment;
+import com.musichead.capstone2022_backend.domain.post.Post;
 import com.musichead.capstone2022_backend.dto.CommentDto;
 import com.musichead.capstone2022_backend.service.CommentService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 @AllArgsConstructor
+@Slf4j
 @Controller
 public class CommentController {
 
@@ -35,5 +39,10 @@ public class CommentController {
     @MutationMapping
     public Comment deleteComment(@Argument Long id) {
         return commentService.delete(id);
+    }
+
+    @SchemaMapping(typeName = "Post")
+    public List<Comment> comments(Post post, @Argument int offset, @Argument int size) {
+        return commentService.findByPost(post, offset, size);
     }
 }

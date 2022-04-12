@@ -18,7 +18,7 @@ type Post {
     content : String!
     member : Member!
     board : Board!
-    comments : [Comment]
+    comments(offset : Int!, size : Int!) : [Comment!]
     createdAt : LocalDateTime!
 }
 
