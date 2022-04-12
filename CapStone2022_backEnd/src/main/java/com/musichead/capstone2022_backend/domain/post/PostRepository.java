@@ -2,10 +2,13 @@ package com.musichead.capstone2022_backend.domain.post;
 
 import com.musichead.capstone2022_backend.domain.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    List<Post> findByMemberIn(List<Member> subscribers);
+    @Query(value = "select p from Post p where p.member in (select sub.toMember from Subscribe sub where sub.fromMember.id = :memberId)")
+    List<Post> findSubscriberPostsByMemberId(@Param("memberId")Long id);
 }

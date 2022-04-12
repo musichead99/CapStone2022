@@ -43,9 +43,7 @@ public class PostService {
     }
 
     public List<Post> findSubscriberPosts(Long memberId) {
-        List<Member> subscribers = subscribeRepository.findToMemberByMemberId(memberId);
-
-        return postRepository.findByMemberIn(subscribers);
+        return postRepository.findSubscriberPostsByMemberId(memberId);
     }
 
     public Post save(PostDto postDto) {
