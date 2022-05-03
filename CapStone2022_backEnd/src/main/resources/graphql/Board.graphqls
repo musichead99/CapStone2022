@@ -10,7 +10,7 @@ extend type Mutation {
 type Board {
     id : ID!
     name : String!
-    posts(boardId : ID!, offset : Int!, size : Int!) : [Post!]
+    posts(offset : Int!, size : Int!) : [Post!]
 }
 
 input boardInput {

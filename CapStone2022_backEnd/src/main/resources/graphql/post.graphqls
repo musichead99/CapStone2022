@@ -1,7 +1,6 @@
 scalar LocalDateTime
 
 type Query {
-    posts(offset : Int!, size : Int!) : [Post]
     getSubscriberPosts(memberId : ID!) : [Post]
     getPost(id : ID!) : Post
 }

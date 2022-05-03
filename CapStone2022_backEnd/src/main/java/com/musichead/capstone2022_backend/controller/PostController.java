@@ -1,5 +1,6 @@
 package com.musichead.capstone2022_backend.controller;
 
+import com.musichead.capstone2022_backend.domain.board.Board;
 import com.musichead.capstone2022_backend.domain.post.Post;
 import com.musichead.capstone2022_backend.dto.PostDto;
 import com.musichead.capstone2022_backend.service.PostService;
@@ -50,7 +51,7 @@ public class PostController {
     }
 
     @SchemaMapping(typeName = "board")
-    public Page<Post> posts(@Argument Long boardId, @Argument int offset, @Argument int size) {
-        return postService.findByBoardId(boardId, offset, size);
+    public Page<Post> posts(Board board, @Argument int offset, @Argument int size) {
+        return postService.findByBoardId(board, offset, size);
     }
 }
