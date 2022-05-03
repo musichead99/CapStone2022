@@ -20,7 +20,7 @@ public class Board {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy="board", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="board", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Post> Posts;
 
     @Builder

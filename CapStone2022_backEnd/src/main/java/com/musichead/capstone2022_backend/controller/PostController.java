@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -46,5 +47,10 @@ public class PostController {
     @MutationMapping
     public Post deletePost(@Argument Long id) {
         return postService.delete(id);
+    }
+
+    @SchemaMapping(typeName = "board")
+    public Page<Post> posts(@Argument Long boardId, @Argument int offset, @Argument int size) {
+        return postService.findByBoardId(boardId, offset, size);
     }
 }

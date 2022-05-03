@@ -42,6 +42,13 @@ public class PostService {
         return post;
     }
 
+    public Page<Post> findByBoardId(Long id, int offset, int size) {
+        PageRequest pageRequest = PageRequest.of(offset, size);
+        Board board = boardRepository.getReferenceById(id);
+
+        return postRepository.findByBoard(board, pageRequest);
+    }
+
     public List<Post> findSubscriberPosts(Long memberId) {
         return postRepository.findSubscriberPostsByMemberId(memberId);
     }
