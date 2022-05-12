@@ -26,6 +26,8 @@ public class Post extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
+    private String audio;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="board_id", nullable = false)
     private Board board;
@@ -48,5 +50,9 @@ public class Post extends BaseTimeEntity {
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public void updateAudio(String audio) {
+        this.audio = audio;
     }
 }

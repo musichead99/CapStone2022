@@ -13,7 +13,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,10 +25,10 @@ import java.util.Optional;
 @Service
 public class PostService {
 
+    String path = System.getProperty("user.dir") + File.separator + "audio" + File.separator;
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
-    private final SubscribeRepository subscribeRepository;
 
     public Page<Post> findAll(int offset, int size) {
         PageRequest pageRequest = PageRequest.of(offset, size);
@@ -73,12 +77,59 @@ public class PostService {
         return post;
     }
 
-    public Post delete(Long id) {
+    @Transactional
+    public String update(long id, MultipartFile audio) {
+
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("id=" + id + " post not exist"));
+        String audioName = audio.getOriginalFilename();
+
+        /* 이미 오디오 파일이 존재하면 삭제 */
+        if(post.getAudio() != null) {
+            deleteFile(post.getAudio());
+        }
+
+        /* 오디오 파일 저장 */
+        try (FileOutputStream fos = new FileOutputStream(path + audioName);
+             InputStream is = audio.getInputStream()) {
+
+
+            int readCount = 0;
+            byte[] buffer = new byte[1024];
+
+            while ((readCount = is.read(buffer)) != -1) {
+                fos.write(buffer, 0, readCount);
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("file Save Error");
+        }
+
+        post.updateAudio(audioName);
+
+        return audioName;
+    }
+
+    @Transactional
+    public Post delete(Long id) {
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("id=" + id + " post not exist"));
+
+        if(post.getAudio() != null) {
+            deleteFile(post.getAudio());
+        }
 
         postRepository.delete(post);
 
         return post;
+    }
+
+    private void deleteFile(String fileName) {
+        File file = new File(path + fileName);
+        if(file.exists()) {
+            file.delete();
+        } else {
+            throw new IllegalArgumentException(fileName + " dose not exist");
+        }
     }
 }

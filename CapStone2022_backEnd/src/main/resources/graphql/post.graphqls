@@ -15,6 +15,7 @@ type Post {
     id : ID!
     title : String!
     content : String!
+    audio : String
     member : Member!
     board : Board!
     comments(offset : Int!, size : Int!) : [Comment!]
