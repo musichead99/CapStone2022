@@ -31,8 +31,8 @@ public class PostController {
     }
 
     @QueryMapping
-    public List<Post> getSubscriberPosts(@Argument Long memberId) {
-        return postService.findSubscriberPosts(memberId);
+    public List<Post> getSubscriberPosts(@Argument Long memberId, @Argument int offset, @Argument int size) {
+        return postService.findSubscriberPosts(memberId, offset, size);
     }
 
     @MutationMapping

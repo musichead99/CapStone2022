@@ -1,7 +1,7 @@
 scalar LocalDateTime
 
 type Query {
-    getSubscriberPosts(memberId : ID!) : [Post]
+    getSubscriberPosts(memberId : ID!, offset : Int!, size : Int!) : [Post]
     getPost(id : ID!) : Post
 }
 
@@ -18,7 +18,7 @@ type Post {
     audio : String
     member : Member!
     board : Board!
-    comments(offset : Int!, size : Int!) : [Comment!]
+    comments : [Comment!]
     createdAt : LocalDateTime!
 }
 

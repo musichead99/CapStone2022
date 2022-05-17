@@ -51,8 +51,9 @@ public class PostService {
         return postRepository.findByBoard(board, pageRequest);
     }
 
-    public List<Post> findSubscriberPosts(Long memberId) {
-        return postRepository.findSubscriberPostsByMemberId(memberId);
+    public List<Post> findSubscriberPosts(Long memberId, int offset, int size) {
+        PageRequest pageRequest = PageRequest.of(offset, size);
+        return postRepository.findSubscriberPostsByMemberId(memberId, pageRequest);
     }
 
     public Post save(PostDto postDto) {

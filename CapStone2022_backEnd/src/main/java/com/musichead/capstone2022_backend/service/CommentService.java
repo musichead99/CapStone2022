@@ -39,9 +39,8 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public List<Comment> findByPost(Post post, int offset, int size) {
-        PageRequest pageRequest = PageRequest.of(offset, size);
-        return commentRepository.findByPost(post, pageRequest);
+    public List<Comment> findByPost(Post post) {
+        return commentRepository.findByPost(post);
     }
 
     @Transactional

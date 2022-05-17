@@ -2,9 +2,6 @@ package com.musichead.capstone2022_backend.controller;
 
 import com.musichead.capstone2022_backend.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,8 +18,8 @@ public class AudioController {
 
     private final PostService postService;
 
-    @PostMapping(value = "/audio")
-    public String postAudio(@RequestPart("audio") MultipartFile multipartFile, @RequestParam(value = "post")Long postId) throws IOException {
+    @PutMapping(value = "/audio")
+    public String putAudio(@RequestPart("audio") MultipartFile multipartFile, @RequestParam(value = "post")Long postId) {
         return postService.update(postId, multipartFile);
     }
 

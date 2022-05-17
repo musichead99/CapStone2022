@@ -42,7 +42,7 @@ public class CommentController {
     }
 
     @SchemaMapping(typeName = "Post")
-    public List<Comment> comments(Post post, @Argument int offset, @Argument int size) {
-        return commentService.findByPost(post, offset, size);
+    public List<Comment> comments(Post post) {
+        return commentService.findByPost(post);
     }
 }
