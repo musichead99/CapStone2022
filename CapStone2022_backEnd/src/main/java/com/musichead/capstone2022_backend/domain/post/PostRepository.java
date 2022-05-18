@@ -15,5 +15,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query(value = "select p from Post p where p.member in (select sub.toMember from Subscribe sub where sub.fromMember.id = :memberId)")
     List<Post> findSubscriberPostsByMemberId(@Param("memberId")Long id, Pageable pageable);
 
-    Page<Post> findByBoard(Board board, Pageable pageable);
+    List<Post> findByBoard(Board board, Pageable pageable);
 }

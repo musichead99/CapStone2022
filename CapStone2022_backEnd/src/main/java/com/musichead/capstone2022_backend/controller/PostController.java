@@ -5,7 +5,6 @@ import com.musichead.capstone2022_backend.domain.post.Post;
 import com.musichead.capstone2022_backend.dto.PostDto;
 import com.musichead.capstone2022_backend.service.PostService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -19,11 +18,6 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
-
-    @QueryMapping
-    public Page<Post> posts(@Argument int offset, @Argument int size) {
-        return postService.findAll(offset, size);
-    }
 
     @QueryMapping
     public Post getPost(@Argument Long id) {
@@ -50,8 +44,8 @@ public class PostController {
         return postService.delete(id);
     }
 
-    @SchemaMapping(typeName = "board")
-    public Page<Post> posts(Board board, @Argument int offset, @Argument int size) {
+    @SchemaMapping(typeName = "Board")
+    public List<Post> posts(Board board, @Argument int offset, @Argument int size) {
         return postService.findByBoardId(board, offset, size);
     }
 }

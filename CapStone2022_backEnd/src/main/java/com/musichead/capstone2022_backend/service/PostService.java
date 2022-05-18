@@ -30,11 +30,6 @@ public class PostService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
 
-    public Page<Post> findAll(int offset, int size) {
-        PageRequest pageRequest = PageRequest.of(offset, size);
-        return postRepository.findAll(pageRequest);
-    }
-
     public Post findById(Long id) {
         Optional<Post> optionalPost = postRepository.findById(id);
         Post post = null;
@@ -46,7 +41,7 @@ public class PostService {
         return post;
     }
 
-    public Page<Post> findByBoardId(Board board, int offset, int size) {
+    public List<Post> findByBoardId(Board board, int offset, int size) {
         PageRequest pageRequest = PageRequest.of(offset, size);
         return postRepository.findByBoard(board, pageRequest);
     }
