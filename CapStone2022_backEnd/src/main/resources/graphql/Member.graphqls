@@ -6,6 +6,7 @@ extend type Query {
 
 extend type Mutation {
     addMember(memberDto : MemberInput) : Member
+    updateMember(id : ID!, memberDto : MemberInput) : Member
 }
 
 type Member {
@@ -19,6 +20,6 @@ type Member {
 
 input MemberInput {
     email : String!
-    picture : String
+    article : String
     name : String!
 }

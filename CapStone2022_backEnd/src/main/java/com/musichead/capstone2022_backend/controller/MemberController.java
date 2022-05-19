@@ -39,4 +39,9 @@ public class MemberController {
     public Member addMember(@Argument MemberDto memberDto) {
         return memberService.save(memberDto);
     }
+
+    @MutationMapping
+    public Member updateMember(@Argument Long id, @Argument MemberDto memberDto) {
+        return memberService.update(id, memberDto);
+    }
 }

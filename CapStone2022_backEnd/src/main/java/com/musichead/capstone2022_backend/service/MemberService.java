@@ -37,11 +37,20 @@ public class MemberService {
         return subscribeRepository.findToMemberByMemberId(id);
     }
 
+    public Member update(Long id, MemberDto memberDto) {
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("member not exist"));
+
+        member.update(memberDto.getName(), memberDto.getArticle());
+
+        return member;
+    }
+
     public Member save(MemberDto memberDto) {
         Member member = Member.builder()
                 .email(memberDto.getEmail())
                 .name(memberDto.getName())
-                .picture(memberDto.getPicture())
+                .article(memberDto.getArticle())
                 .build();
 
         return memberRepository.save(member);

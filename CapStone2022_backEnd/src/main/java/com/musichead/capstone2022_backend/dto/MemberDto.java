@@ -8,5 +8,5 @@ import lombok.Getter;
 public class MemberDto {
     private String email;
     private String name;
-    private String picture;
+    private String article;
 }

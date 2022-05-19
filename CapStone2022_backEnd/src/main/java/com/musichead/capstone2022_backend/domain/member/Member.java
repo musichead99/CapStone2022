@@ -26,6 +26,8 @@ public class Member {
     @Column(nullable = false)
     private String name;
 
+    private String article;
+
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Post> posts;
 
@@ -33,9 +35,15 @@ public class Member {
 //    private List<Subscribe> subscribes;
 
     @Builder
-    public Member(String email, String picture, String name) {
+    public Member(String email, String picture, String name, String article) {
         this.email = email;
         this.picture = picture;
         this.name = name;
+        this.article = article;
+    }
+
+    public void update(String name, String article) {
+        this.name = name;
+        this.article = article;
     }
 }
