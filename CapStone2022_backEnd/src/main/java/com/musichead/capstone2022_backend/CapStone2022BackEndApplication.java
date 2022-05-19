@@ -8,6 +8,8 @@ import com.musichead.capstone2022_backend.domain.post.Post;
 import com.musichead.capstone2022_backend.domain.post.PostRepository;
 import com.musichead.capstone2022_backend.domain.member.Member;
 import com.musichead.capstone2022_backend.domain.member.MemberRepository;
+import com.musichead.capstone2022_backend.domain.subscribe.Subscribe;
+import com.musichead.capstone2022_backend.domain.subscribe.SubscribeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,19 +25,23 @@ public class CapStone2022BackEndApplication {
     }
 
     @Bean
-    public CommandLineRunner run(MemberRepository memberRepository, BoardRepository boardRepository, PostRepository postRepository, CommentRepository commentRepository) throws Exception {
+    public CommandLineRunner run(MemberRepository memberRepository, BoardRepository boardRepository, PostRepository postRepository, CommentRepository commentRepository, SubscribeRepository subscribeRepository) throws Exception {
         return (args) -> {
             Board board = new Board().builder().name("전체").build();
             Member member = new Member().builder().email("musichead99@naver.com").name("정성구").picture(null).build();
             Member member2 = new Member().builder().email("rdd0426@naver.com").name("김영우").picture(null).build();
             Post post = new Post().builder().title("테스트글").content("테스트내용").board(board).member(member).build();
+            Subscribe subscribe = new Subscribe(member, member2);
             boardRepository.save(board);
             memberRepository.save(member);
             memberRepository.save(member2);
             postRepository.save(post);
+            subscribeRepository.save(subscribe);
 
             for(int i = 1; i <= 10; i++) {
                 commentRepository.save(new Comment().builder().post(post).member(member).content("테스트댓글 "+i).build());
+                postRepository.save(new Post().builder().board(board).title("테스트글").content("테스트내용").member(member).build());
+                postRepository.save(new Post().builder().board(board).title("테스트글 2").content("테스트내용 2").member(member2).build());
             }
         };
     }
