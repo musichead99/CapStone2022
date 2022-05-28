@@ -5,6 +5,7 @@ import com.musichead.capstone2022_backend.domain.subscribe.Subscribe;
 import com.musichead.capstone2022_backend.domain.subscribe.SubscribeRepository;
 import com.musichead.capstone2022_backend.domain.member.Member;
 import com.musichead.capstone2022_backend.domain.member.MemberRepository;
+import com.musichead.capstone2022_backend.dto.SubscribeOutPutDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,12 +18,14 @@ public class SubscribeService {
     private final SubscribeRepository subscribeRepository;
     private final MemberRepository memberRepository;
 
-    public Long countByFromMember(Long fromMemberId) {
-        Member fromMember = memberRepository.getReferenceById(fromMemberId);
-        return subscribeRepository.countByFromMember(fromMember);
+    public Long countByToMember(Long toMemberId) {
+        Member toMember = memberRepository.getReferenceById(toMemberId);
+        return subscribeRepository.countByToMember(toMember);
     }
 
-    public Subscribe save(Long fromMemberId, Long toMemberId) {
+    public SubscribeOutPutDto save(Long fromMemberId, Long toMemberId) {
+        check(fromMemberId,toMemberId);
+
         Member fromMember = memberRepository.getReferenceById(fromMemberId);
         Member toMember = memberRepository.getReferenceById(toMemberId);
 
@@ -30,11 +33,16 @@ public class SubscribeService {
                 .fromMember(fromMember)
                 .toMember(toMember)
                 .build();
+        subscribeRepository.save(subscribe);
 
-        return subscribeRepository.save(subscribe);
+        Long subscriberCount = subscribeRepository.countByToMember(toMember);
+
+        return new SubscribeOutPutDto(fromMember, toMember, subscriberCount);
     }
 
-    public Subscribe delete(Long fromMemberId, Long toMemberId) {
+    public SubscribeOutPutDto delete(Long fromMemberId, Long toMemberId) {
+        check(fromMemberId,toMemberId);
+
         Member fromMember = memberRepository.getReferenceById(fromMemberId);
         Member toMember = memberRepository.getReferenceById(toMemberId);
 
@@ -42,6 +50,13 @@ public class SubscribeService {
                 .orElseThrow(() -> new IllegalArgumentException("subscribe not exist"));
 
         subscribeRepository.delete(subscribe);
-        return subscribe;
+        Long subscriberCount = subscribeRepository.countByToMember(toMember);
+        return new SubscribeOutPutDto(fromMember, toMember, subscriberCount);
+    }
+
+    private void check(Long fromMemberId, Long toMemberId) {
+        if(fromMemberId.longValue() == toMemberId.longValue()) {
+            throw new IllegalArgumentException("can't subscribe " + fromMemberId + "to " + toMemberId);
+        }
     }
 }

@@ -12,7 +12,7 @@ public interface SubscribeRepository extends JpaRepository<Subscribe, Long> {
 
     Optional<Subscribe> findByFromMemberAndToMember(Member fromMember, Member toMember);
 
-    Long countByFromMember(Member fromMember);
+    Long countByToMember(Member fromMember);
 
     @Query( value = "select sub.toMember from Subscribe sub where sub.fromMember.id = :memberId")
     List<Member> findToMemberByMemberId(@Param("memberId")Long memberId);

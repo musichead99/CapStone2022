@@ -1,14 +1,20 @@
 extend type Query {
-    getSubscribeCount(fromMemberId : ID!) : Int!
+    getSubscriberCount(toMemberId : ID!) : Int!
 }
 
 extend type Mutation {
-    addSubscribe(fromMemberId : ID!, toMemberId : ID!) : Subscribe
-    deleteSubscribe(fromMemberId : ID!, toMemberId : ID!) : Subscribe
+    addSubscribe(fromMemberId : ID!, toMemberId : ID!) : SubscribeOutput
+    deleteSubscribe(fromMemberId : ID!, toMemberId : ID!) : SubscribeOutput
 }
 
 type Subscribe {
     id : ID!
     fromMember : Member!
     toMember : Member!
+}
+
+type SubscribeOutput {
+    fromMember : Member!
+    toMember : Member!
+    subscriberCount : Int!
 }

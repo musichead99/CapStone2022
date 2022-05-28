@@ -2,6 +2,7 @@ package com.musichead.capstone2022_backend.controller;
 
 import com.musichead.capstone2022_backend.domain.member.Member;
 import com.musichead.capstone2022_backend.domain.subscribe.Subscribe;
+import com.musichead.capstone2022_backend.dto.SubscribeOutPutDto;
 import com.musichead.capstone2022_backend.service.SubscribeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -19,17 +20,17 @@ public class SubscribeController {
     private final SubscribeService subscribeService;
 
     @QueryMapping
-    public Long getSubscribeCount(@Argument Long fromMemberId) {
-        return subscribeService.countByFromMember(fromMemberId);
+    public Long getSubscriberCount(@Argument Long toMemberId) {
+        return subscribeService.countByToMember(toMemberId);
     }
 
     @MutationMapping
-    public Subscribe addSubscribe(@Argument Long fromMemberId, @Argument Long toMemberId) {
+    public SubscribeOutPutDto addSubscribe(@Argument Long fromMemberId, @Argument Long toMemberId) {
         return subscribeService.save(fromMemberId, toMemberId);
     }
 
     @MutationMapping
-    public Subscribe deleteSubscribe(@Argument Long fromMemberId, @Argument Long toMemberId) {
+    public SubscribeOutPutDto deleteSubscribe(@Argument Long fromMemberId, @Argument Long toMemberId) {
         return subscribeService.delete(fromMemberId, toMemberId);
     }
 }
