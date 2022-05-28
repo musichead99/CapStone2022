@@ -1,5 +1,5 @@
 extend type Query {
-    comments : [Comment]
+    getCommentsByPostId(postId : ID!) : [Comment!]
 }
 
 extend type Mutation {

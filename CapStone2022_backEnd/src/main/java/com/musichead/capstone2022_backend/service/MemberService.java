@@ -6,6 +6,7 @@ import com.musichead.capstone2022_backend.domain.subscribe.SubscribeRepository;
 import com.musichead.capstone2022_backend.dto.MemberDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,7 @@ public class MemberService {
         return subscribeRepository.findToMemberByMemberId(id);
     }
 
+    @Transactional
     public Member update(Long id, MemberDto memberDto) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("member not exist"));

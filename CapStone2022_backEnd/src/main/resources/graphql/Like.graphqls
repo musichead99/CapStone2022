@@ -1,0 +1,20 @@
+extend type Query {
+    getLikeCountByPostId(postId : ID!) : Int!
+}
+
+extend type Mutation {
+    addLike(postId : ID!, memberId : ID!) : LikeOutput!
+    deleteLike(postId : ID!, memberId : ID!) : LikeOutput!
+}
+
+type Like {
+    id : ID!
+    post : Post!
+    member : Member!
+}
+
+type LikeOutput {
+    post : Post!
+    member : Member!
+    likeCount : Int!
+}

@@ -18,6 +18,7 @@ type Post {
     audio : String
     member : Member!
     board : Board!
+    likeCount : Int!
     comments : [Comment!]
     createdAt : LocalDateTime!
 }

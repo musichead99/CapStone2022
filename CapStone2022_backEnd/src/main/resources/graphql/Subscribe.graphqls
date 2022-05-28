@@ -9,6 +9,6 @@ extend type Mutation {
 
 type Subscribe {
     id : ID!
-    fromMember : Member
-    toMember : Member
+    fromMember : Member!
+    toMember : Member!
 }

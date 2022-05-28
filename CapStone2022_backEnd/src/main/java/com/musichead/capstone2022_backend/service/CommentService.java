@@ -43,6 +43,11 @@ public class CommentService {
         return commentRepository.findByPost(post);
     }
 
+    public List<Comment> findByPost(Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("id=" + postId + " is not exist"));
+        return commentRepository.findByPost(post);
+    }
+
     @Transactional
     public Comment update(Long id, CommentDto commentDto) {
         Comment comment = commentRepository.findById(id)

@@ -3,6 +3,7 @@ package com.musichead.capstone2022_backend.domain.post;
 import com.musichead.capstone2022_backend.domain.BaseTimeEntity;
 import com.musichead.capstone2022_backend.domain.board.Board;
 import com.musichead.capstone2022_backend.domain.comment.Comment;
+import com.musichead.capstone2022_backend.domain.like.Like;
 import com.musichead.capstone2022_backend.domain.member.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,8 +37,11 @@ public class Post extends BaseTimeEntity {
     @JoinColumn(name="member_id", nullable = false)
     private Member member;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Like> likes;
 
     @Builder
     public Post(String title, String content, Board board, Member member) {

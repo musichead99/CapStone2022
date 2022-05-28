@@ -22,8 +22,8 @@ public class CommentController {
     private final CommentService commentService;
 
     @QueryMapping
-    public List<Comment> comments() {
-        return commentService.findAll();
+    public List<Comment> getCommentsByPostId(@Argument Long postId) {
+        return commentService.findByPost(postId);
     }
 
     @MutationMapping
