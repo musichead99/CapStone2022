@@ -4,6 +4,7 @@ import com.musichead.capstone2022_backend.domain.board.Board;
 import com.musichead.capstone2022_backend.domain.board.BoardRepository;
 import com.musichead.capstone2022_backend.domain.comment.Comment;
 import com.musichead.capstone2022_backend.domain.comment.CommentRepository;
+import com.musichead.capstone2022_backend.domain.member.Role;
 import com.musichead.capstone2022_backend.domain.post.Post;
 import com.musichead.capstone2022_backend.domain.post.PostRepository;
 import com.musichead.capstone2022_backend.domain.member.Member;
@@ -28,8 +29,8 @@ public class CapStone2022BackEndApplication {
     public CommandLineRunner run(MemberRepository memberRepository, BoardRepository boardRepository, PostRepository postRepository, CommentRepository commentRepository) throws Exception {
         return (args) -> {
             Board board = new Board().builder().name("전체").build();
-            Member member = new Member().builder().email("musichead99@naver.com").name("정성구").picture(null).build();
-            Member member2 = new Member().builder().email("rdd0426@naver.com").name("김영우").picture(null).build();
+            Member member = new Member().builder().email("musichead99@naver.com").name("정성구").picture(null).role(Role.ADMIN).build();
+            Member member2 = new Member().builder().email("rdd0426@naver.com").name("김영우").picture(null).role(Role.ADMIN).build();
             Post post = new Post().builder().title("테스트글").content("테스트내용").board(board).member(member).build();
             boardRepository.save(board);
             memberRepository.save(member);
