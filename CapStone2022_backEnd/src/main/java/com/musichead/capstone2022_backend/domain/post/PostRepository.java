@@ -16,4 +16,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findSubscriberPostsByMemberId(@Param("memberId")Long id, Pageable pageable);
 
     List<Post> findByBoard(Board board, Pageable pageable);
+
+    @Query(value = "select p.realAudio from Post p where p.id = :id")
+    String findRealAudioById(@Param("id")Long id);
 }

@@ -20,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -78,15 +79,19 @@ public class PostService {
 
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("id=" + id + " post not exist"));
-        String audioName = audio.getOriginalFilename();
 
         /* 이미 오디오 파일이 존재하면 삭제 */
-        if(post.getAudio() != null) {
-            deleteFile(post.getAudio());
+        if(post.getRealAudio() != null) {
+            deleteFile(post.getRealAudio());
         }
 
+        /* 파일 이름과 실제 저장할 파일명을 생성 */
+        UUID uuid = UUID.randomUUID();
+        String audioName = audio.getOriginalFilename();
+        String realAudioName = uuid.toString() + "_" + audioName;
+
         /* 오디오 파일 저장 */
-        try (FileOutputStream fos = new FileOutputStream(path + audioName);
+        try (FileOutputStream fos = new FileOutputStream(path + realAudioName);
              InputStream is = audio.getInputStream()) {
 
 
@@ -100,7 +105,7 @@ public class PostService {
             throw new RuntimeException("file Save Error");
         }
 
-        post.updateAudio(audioName);
+        post.updateAudio(audioName, realAudioName);
 
         return audioName;
     }
@@ -111,8 +116,8 @@ public class PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("id=" + id + " post not exist"));
 
-        if(post.getAudio() != null) {
-            deleteFile(post.getAudio());
+        if(post.getRealAudio() != null) {
+            deleteFile(post.getRealAudio());
         }
 
         postRepository.delete(post);

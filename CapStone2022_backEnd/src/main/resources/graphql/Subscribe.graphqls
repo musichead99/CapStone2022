@@ -1,5 +1,6 @@
 extend type Query {
     getSubscriberCount(toMemberId : ID!) : Int!
+    isSubscribed(fromMemberId : ID!, toMemberId : ID!) : Boolean!
 }
 
 extend type Mutation {

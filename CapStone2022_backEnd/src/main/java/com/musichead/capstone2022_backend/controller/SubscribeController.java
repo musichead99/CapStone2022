@@ -20,6 +20,11 @@ public class SubscribeController {
     private final SubscribeService subscribeService;
 
     @QueryMapping
+    public boolean isSubscribed(@Argument Long fromMemberId, @Argument Long toMemberId) {
+        return subscribeService.isSubscribed(fromMemberId, toMemberId);
+    }
+
+    @QueryMapping
     public Long getSubscriberCount(@Argument Long toMemberId) {
         return subscribeService.countByToMember(toMemberId);
     }

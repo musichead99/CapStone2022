@@ -18,6 +18,14 @@ public class SubscribeService {
     private final SubscribeRepository subscribeRepository;
     private final MemberRepository memberRepository;
 
+    public boolean isSubscribed(Long fromMemberId, Long toMemberId) {
+
+        Member fromMember = memberRepository.getReferenceById(fromMemberId);
+        Member toMember = memberRepository.getReferenceById(toMemberId);
+
+        return subscribeRepository.findByFromMemberAndToMember(fromMember, toMember).isPresent();
+    }
+
     public Long countByToMember(Long toMemberId) {
         Member toMember = memberRepository.getReferenceById(toMemberId);
         return subscribeRepository.countByToMember(toMember);
