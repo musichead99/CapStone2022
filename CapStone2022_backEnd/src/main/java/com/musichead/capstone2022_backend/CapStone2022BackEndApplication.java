@@ -6,6 +6,7 @@ import com.musichead.capstone2022_backend.domain.comment.Comment;
 import com.musichead.capstone2022_backend.domain.comment.CommentRepository;
 import com.musichead.capstone2022_backend.domain.like.Like;
 import com.musichead.capstone2022_backend.domain.like.LikeRepository;
+import com.musichead.capstone2022_backend.domain.member.Role;
 import com.musichead.capstone2022_backend.domain.post.Post;
 import com.musichead.capstone2022_backend.domain.post.PostRepository;
 import com.musichead.capstone2022_backend.domain.member.Member;
@@ -15,9 +16,11 @@ import com.musichead.capstone2022_backend.domain.subscribe.SubscribeRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+@EnableConfigurationProperties(AppProperties.class)
 @EnableJpaAuditing
 @SpringBootApplication
 public class CapStone2022BackEndApplication {
@@ -30,8 +33,8 @@ public class CapStone2022BackEndApplication {
     public CommandLineRunner run(MemberRepository memberRepository, BoardRepository boardRepository, PostRepository postRepository, CommentRepository commentRepository, SubscribeRepository subscribeRepository, LikeRepository likeRepository) throws Exception {
         return (args) -> {
             Board board = new Board().builder().name("전체").build();
-            Member member = new Member().builder().email("musichead99@naver.com").name("정성구").picture(null).build();
-            Member member2 = new Member().builder().email("rdd0426@naver.com").name("김영우").picture(null).build();
+            Member member = new Member().builder().email("musichead99@naver.com").name("정성구").picture(null).role(Role.ADMIN).build();
+            Member member2 = new Member().builder().email("rdd0426@naver.com").name("김영우").picture(null).role(Role.ADMIN).build();
             Post post = new Post().builder().title("테스트글").content("테스트내용").board(board).member(member).build();
             Subscribe subscribe = new Subscribe(member, member2);
             boardRepository.save(board);

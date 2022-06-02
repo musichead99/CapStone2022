@@ -28,7 +28,8 @@ public class Member {
     @Column(nullable = false)
     private String name;
 
-    private String article;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Post> posts;
@@ -40,15 +41,21 @@ public class Member {
     private List<Like> likes;
 
     @Builder
-    public Member(String email, String picture, String name, String article) {
+    public Member(String email, String picture, String name, Role role) {
         this.email = email;
         this.picture = picture;
         this.name = name;
-        this.article = article;
+        this.role = role;
     }
 
-    public void update(String name, String article) {
+    public String getRoleKey() {
+        return this.role.getKey();
+    }
+
+    public Member update(String name, String picture) {
         this.name = name;
-        this.article = article;
+        this.picture = picture;
+
+        return this;
     }
 }
