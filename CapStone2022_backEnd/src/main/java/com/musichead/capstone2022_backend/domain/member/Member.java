@@ -28,6 +28,8 @@ public class Member {
     @Column(nullable = false)
     private String name;
 
+    private String article;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -41,10 +43,11 @@ public class Member {
     private List<Like> likes;
 
     @Builder
-    public Member(String email, String picture, String name, Role role) {
+    public Member(String email, String picture, String name, String article, Role role) {
         this.email = email;
         this.picture = picture;
         this.name = name;
+        this.article = article;
         this.role = role;
     }
 
@@ -55,6 +58,12 @@ public class Member {
     public Member update(String name, String picture) {
         this.name = name;
         this.picture = picture;
+
+        return this;
+    }
+
+    public Member articleUpdate(String article) {
+        this.article = article;
 
         return this;
     }

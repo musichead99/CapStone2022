@@ -43,7 +43,7 @@ public class MemberService {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("member not exist"));
 
-        member.update(memberDto.getName(), memberDto.getArticle());
+        member.articleUpdate(memberDto.getArticle());
 
         return member;
     }
