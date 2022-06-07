@@ -7,15 +7,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/auth")
 public class TokenController {
 
-    @GetMapping("/token")
+    @GetMapping("/auth/token")
     public String token(@RequestParam String token, @RequestParam String error) {
         if (StringUtils.isNotBlank(error)) {
             return error;
         } else {
             return token;
         }
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "valid";
     }
 }
