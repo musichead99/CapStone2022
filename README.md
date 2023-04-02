@@ -11,5 +11,5 @@ CapStone2022
 ![spring logo](https://i2.wp.com/thinkground.studio/wp-content/uploads/2020/05/200525_spring-boot-1.png?fit=310%2C163&ssl=1)
 #### 2. GraphQL
 ![GraphQL_logo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuutq3qnYs7CqfYZ87iSNYoCUd8A14qFuAqoNKCdf2jRn_rzZISs_Ylc7sja31NgQQMUQ&usqp=CAU)
-#### 3. MySQL
-<img src="https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/797z/image/3r7sR9IJuBZfq4M5yKrLWIt3rZE.jpg" width="380" height="180">
+#### 3. H2 Database
+<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fdbdb.io%2Fdb%2Fh2&psig=AOvVaw07TutDG_Xq8fMdqi5LMdPG&ust=1680527860469000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCKi61qOki_4CFQAAAAAdAAAAABAD" width="380" height="180">
